@@ -1,0 +1,58 @@
+version: '2'
+
+services:
+    balancer:
+        enviroment:
+            - PORT=34000
+        build:
+            context: ./Balancer
+            dockerfile: Dockerfile
+        container_name: Balancer
+        ports:
+            - "34000:4567"
+        links:
+            - LogService1
+            - LogService2
+            - LogService3
+
+    LogService1:
+        enviroment:
+            - PORT=34001
+        build:
+            context: ./LogService
+            dockerfile: Dockerfile
+        container_name: LogService1
+        links:
+            - db
+    
+    LogService2:
+        enviroment:
+            - PORT=34002
+        build:
+            context: ./LogService
+            dockerfile: Dockerfile
+        container_name: LogService2
+        links:
+            - db
+    
+    LogService3:
+        enviroment:
+            - PORT=34003
+        build:
+            context: ./LogService
+            dockerfile: Dockerfile
+        container_name: LogService3
+        links:
+            - db
+    
+    db:
+        image: mongo:3.6.1
+        container_name: db
+        volumes:
+            - mongodb:/data/db
+            - mongodb_config:/data/configdb
+        command: mongod
+        
+volumes:
+    mongodb:
+    mongodb_config:

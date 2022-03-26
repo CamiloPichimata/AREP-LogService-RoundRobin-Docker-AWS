@@ -47,3 +47,71 @@ Con el comando `docker images` se puede revisar que las imagenes fueron contruid
 
 ![](img/docker_images.png)
 
+Luego de creadas las imágenes mediante el archivo [docker-compose.yml]() se genera una configuración auntomática para docker al ejecutar el siguiente comando: 
+
+```bash
+# Configuración automática con archivo docker-compose.yml
+docker compose up -d
+```
+
+Se ejecuta el comando:
+
+![](img/docker-compose_up_1.png)
+
+Al finar la ejecución indica que los servicios especificados en el archivo docker-compose.yml se crearon correctamente:
+
+![](img/docker-compose_up_2.png)
+
+Se verifica que se crearon los servicios al ejecutar el comando `docker ps`:
+
+![](img/docker_ps.png)
+
+Del mismo modo se puede ver en Docker Desktop el estado de los contenedores en "Running" como se ve en la siguiente imágen:
+
+![](img/docker_desktop_running.png)
+
+### Carga de imagenes a Docker Hub
+Se ingresa a la dirección `https://hub.docker.com/` y se ingresa con el usuaro y contraseña, luego de esto se procede a crear un nuevo repositorio dando click en el boton **Create Repository**.
+
+Se ingresa el nombre, una descripción corta y en este caso la visibilidad como pública, como se puede ver a continuación:
+
+![](img/docker_repositorio_1.png)
+
+Se crea una referencia a las imágenes de manera local con el nombre del repositorio usando los siguientes comandos:
+
+```bash
+# Balanceador de carga
+docker tag balancer camilopichimata/arep-logservice_roundrobin_aws
+
+# LogService
+docker tag logservice camilopichimata/arep-logservice_roundrobin_aws
+```
+
+La ejecución de los comandos se puede visualizar en la siguiente imagen:
+
+![](img/docker_reflocal_repo.png)
+
+Se comprueba que se haya creado la referencia local al repositorio con el comando `docker images`:
+
+![](img/docker_reflocal_repo_2.png)
+
+Se realiza la autenticación de la cuenta de Docker Hub en caso de ser necesario con el comando `docker login`, se debe ingresar el nombre de ususario y la contraseña:
+
+![](img/docker_login.png)
+
+Luego de esto, se realiza en envío de la imagen al repositorio utilizando el siguiente comando:
+
+```bash
+docker push camilopichimata/arep-logservice_roundrobin_aws:latest
+```
+
+La salida mostrada en la consola es la siguiente:
+
+![](img/docker_push.png)
+
+Verificamos que se visualice el push realizado en el repositorio:
+
+![](img/docker_repositorio_2.png)
+
+## Despliegue AWS
+

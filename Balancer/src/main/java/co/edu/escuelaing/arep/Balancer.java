@@ -14,9 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * LogService es un servicio REST que recibe una cadena, la almacena en la base de datos 
- * y responde en un objeto JSON con las 10 ultimas cadenas almacenadas en la base de datos 
- * y la fecha en que fueron almacenadas.
+ * Balancer es 
  * 
  * @author Camilo Pichimata
  */

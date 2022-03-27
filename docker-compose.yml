@@ -4,9 +4,7 @@ services:
     balancer:
         environment:
             - PORT=34000
-        build:
-            context: ./Balancer
-            dockerfile: Dockerfile
+        image: camilopichimata/arep-logservice_roundrobin_aws:balancer
         container_name: balancer
         ports:
             - "34000:4567"
@@ -18,9 +16,7 @@ services:
     logservice1:
         environment:
             - PORT=34001
-        build:
-            context: ./LogService
-            dockerfile: Dockerfile
+        image: camilopichimata/arep-logservice_roundrobin_aws:logservice
         container_name: logservice1
         links:
             - db
@@ -28,9 +24,7 @@ services:
     logservice2:
         environment:
             - PORT=34002
-        build:
-            context: ./LogService
-            dockerfile: Dockerfile
+        image: camilopichimata/arep-logservice_roundrobin_aws:logservice
         container_name: logservice2
         links:
             - db
@@ -38,9 +32,7 @@ services:
     logservice3:
         environment:
             - PORT=34003
-        build:
-            context: ./LogService
-            dockerfile: Dockerfile
+        image: camilopichimata/arep-logservice_roundrobin_aws:logservice
         container_name: logservice3
         links:
             - db
@@ -56,3 +48,4 @@ services:
 volumes:
     mongodb:
     mongodb_config:
+    
